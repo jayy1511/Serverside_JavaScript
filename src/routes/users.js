@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    console.log('Request Body:', req.body); 
     res.send('you have reached the POST request !')
 })
 

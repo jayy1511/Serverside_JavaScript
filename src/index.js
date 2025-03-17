@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const userRoutes = require("./routes/users")
+const userRoutes = require("./routes/users");
 
-app.use("/api/users", userRoutes)
-
+// Middleware
+app.use(express.json());
 app.use((req, res, next) => {
   req.calculatedValue = 4 * 7;
   next();
 });
+
+// Route for /api/users
+app.use("/api/users", userRoutes);
 
 app.get('/', (req, res) => {
   console.log(`Calculated value: ${req.calculatedValue}`);
@@ -16,8 +19,8 @@ app.get('/', (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my API ! e-commerce backed 🤳")
- })
+  res.send("Welcome to my API ! e-commerce backend 🤳");
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
