@@ -6,8 +6,11 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log('Request Body:', req.body); 
-    res.send('you have reached the POST request !')
+    const firstName = req.body.firstName
+    const email = req.body.email
+    const password = req.body.password
+    res.json({firstName, email, password})
+    console.log(firstName, email, password)
 })
 
 module.exports = router
