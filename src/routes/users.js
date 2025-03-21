@@ -1,15 +1,12 @@
-const express = require("express")
-const router = express.Router()
-const { hashPassword } = require("../middleware/passencrypt")
+const express = require("express");
+const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Users page')
-})
+const { hashPassword } = require("../middleware/passencrypt");
 
-router.post('/', hashPassword, (req, res) => {
-    const { firstName, email } = req.body
-    const hashedPassword = req.hashedPassword
-    res.json({firstName, email, hashedPassword})
-})
+const { userLogIn, userSignUp } = require("../controllers/userControllers");
 
-module.exports = router
+router.get("/", userLogIn);
+
+router.post("/signup", hashPassword, userSignUp);
+
+module.exports = router;
