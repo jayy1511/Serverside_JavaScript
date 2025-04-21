@@ -5,7 +5,8 @@ const { hashPassword } = require("../middleware/passencrypt");
 
 const { userLogIn, userSignUp } = require("../controllers/userControllers");
 
-router.get("/", userLogIn);
+router.post("/login", userLogIn);
+
 
 router.post("/signup", hashPassword, userSignUp);
 
