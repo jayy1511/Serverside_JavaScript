@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const userRoutes = require("./routes/users");
+const productRoutes = require("./routes/products");
+const invoiceRoutes = require("./routes/invoices");
 
 const connectDB = require("./utils/db");
 connectDB();
@@ -59,6 +61,10 @@ app.post("/", hashPassword, (req, res) => {
     _id: "randomId4567",
   });
 });
+
+
+app.use("/api/products", productRoutes);
+app.use("/api/invoices", invoiceRoutes);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
