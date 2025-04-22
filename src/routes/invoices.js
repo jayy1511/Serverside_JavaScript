@@ -4,7 +4,7 @@ const { verifyToken } = require("../middleware/auth");
 
 const {
   createInvoice,
-  getAllInvoices,
+  getInvoices,
   getInvoiceById,
   updateInvoice,
   deleteInvoice,
@@ -14,7 +14,7 @@ const {
 router.post("/", verifyToken, createInvoice);
 
 // Get all invoices (protected)
-router.get("/", verifyToken, getAllInvoices);
+router.get("/", verifyToken, getInvoices);
 
 // Get specific invoice by ID (protected)
 router.get("/:id", verifyToken, getInvoiceById);
