@@ -1,35 +1,39 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
-  return (
-    <nav className="bg-gray-900 text-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Brand */}
-        <Link to="/" className="text-2xl font-bold text-blue-400 hover:text-blue-500">
-          b-eay 🖥️
-        </Link>
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
 
-        {/* Links */}
-        <div className="space-x-6">
-          <Link
-            to="/products"
-            className="hover:text-blue-400 transition-colors duration-200"
-          >
-            Products
-          </Link>
-          <Link
-            to="/login"
-            className="hover:text-blue-400 transition-colors duration-200"
-          >
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="hover:text-blue-400 transition-colors duration-200"
-          >
-            Signup
-          </Link>
-        </div>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  return (
+    <nav className="bg-gray-900 text-white p-4 flex justify-between items-center">
+      <h1 className="text-xl font-bold">b-eay</h1>
+      <div className="space-x-4">
+        <Link to="/" className="hover:underline">Home</Link>
+
+        {!token ? (
+          <Link to="/login" className="hover:underline">Sign In</Link>
+        ) : (
+          <>
+            <Link to="/add-product" className="hover:underline">Add Product</Link>
+            <Link to="/manage-products" className="hover:underline">Manage Products</Link>
+            <Link to="/profile" className="hover:underline">
+              {user?.firstName || "Profile"}
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded ml-2"
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );

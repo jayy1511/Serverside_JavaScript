@@ -1,116 +1,90 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Signup() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    role: 'user', // default role
-  });
+const Signup = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:3000/api/users/signup', {
-        method: 'POST',
+      const res = await fetch("http://localhost:3000/api/users/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          role: "user",
+        }),
       });
 
+      const data = await res.json();
+      console.log(data);
+
       if (res.ok) {
-        alert('Signup successful! 🎉');
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: '',
-          role: 'user',
-        });
+        alert("Signup successful! Please login.");
+        navigate("/login");
       } else {
-        const errData = await res.json();
-        alert(`Signup failed: ${errData.message}`);
+        alert(data.message || "Signup failed.");
       }
     } catch (error) {
       console.error(error);
-      alert('Something went wrong.');
+      alert("Something went wrong.");
     }
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
-      >
-        <h2 className="text-3xl text-center font-bold text-white mb-6">Create Account</h2>
-
-        <div className="flex space-x-4 mb-4">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            className="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            className="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-black">
+      <h1 className="text-2xl font-bold text-white mb-6">Sign Up</h1>
+      <form onSubmit={handleSignup} className="flex flex-col gap-4 w-full max-w-sm">
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First Name"
+          required
+          className="p-3 rounded bg-gray-800 text-white"
+        />
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Last Name"
+          required
+          className="p-3 rounded bg-gray-800 text-white"
+        />
         <input
           type="email"
-          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.email}
-          onChange={handleChange}
           required
+          className="p-3 rounded bg-gray-800 text-white"
         />
-
         <input
           type="password"
-          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.password}
-          onChange={handleChange}
           required
+          className="p-3 rounded bg-gray-800 text-white"
         />
-
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          className="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="user">User</option>
-          <option value="vendor">Vendor</option>
-        </select>
-
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded"
         >
           Sign Up
         </button>
       </form>
     </div>
   );
-}
+};
 
 export default Signup;

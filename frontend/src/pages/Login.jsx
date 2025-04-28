@@ -1,79 +1,73 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // ✅ very important for redirection
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:3000/api/users/login', {
-        method: 'POST',
+      const res = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email, password }),
       });
 
+      const data = await res.json();
+      console.log(data);
+
       if (res.ok) {
-        const data = await res.json();
-        alert('Login successful! 🎉');
-        // Save token to localStorage for authenticated routes
-        localStorage.setItem('token', data.token);
-        setFormData({ email: '', password: '' });
+        // ✅ Save token
+        localStorage.setItem("token", data.token);
+
+        // ✅ Save user information
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // ✅ Redirect to homepage
+        navigate("/");
+
       } else {
-        const errData = await res.json();
-        alert(`Login failed: ${errData.message}`);
+        alert(data.message || "Login failed!");
       }
     } catch (error) {
       console.error(error);
-      alert('Something went wrong.');
+      alert("Something went wrong.");
     }
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
-      >
-        <h2 className="text-3xl text-center font-bold text-white mb-6">Login</h2>
-
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-black">
+      <h1 className="text-2xl font-bold text-white mb-6">Login</h1>
+      <form onSubmit={handleLogin} className="flex flex-col gap-4 w-full max-w-sm">
         <input
           type="email"
-          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.email}
-          onChange={handleChange}
           required
+          className="p-3 rounded bg-gray-800 text-white"
         />
-
         <input
           type="password"
-          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="w-full mb-6 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.password}
-          onChange={handleChange}
           required
+          className="p-3 rounded bg-gray-800 text-white"
         />
-
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded"
         >
-          Log In
+          Login
         </button>
       </form>
     </div>
   );
-}
+};
 
 export default Login;
