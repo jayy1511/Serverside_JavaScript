@@ -1,68 +1,51 @@
-# Gym Website - React & TailwindCSS
+# 🛒 b-eay — E-commerce PC Parts Store
 
-![Deploy](https://img.shields.io/badge/deploy-Netlify-blue)
+Welcome to **b-eay**, a modern e-commerce web application built with **React + Tailwind CSS** frontend and a **Node.js + MongoDB** backend REST API.
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Running the Project](#running-the-project)
-- [Live Demo](#live-demo)
+This project allows users to:
+- Browse PC parts and accessories 🖥️
+- Sign up, log in, view their profile 👤
+- Admin users can add, edit, and delete products 🛠️
+- Smooth, professional, responsive UI ✨
 
-## Project Overview
+---
 
-This project is a modern, responsive website for a gym, built using React and styled with TailwindCSS. The website features various sections including home, subscriptions, activities, clubs, about, and contact, offering a comprehensive user experience for visitors.
+## 🌟 Features
 
-## Features
+- **Authentication:**
+  - Secure login and signup with JWT
+  - User session stored using `localStorage`
+- **Hero Section:**
+  - Full-screen background with bold title and "Checkout Now" button
+- **Product Management:**
+  - Add, edit, and delete products (admin side)
+- **Profile Page:**
+  - View logged-in user profile
+- **Responsive Design:**
+  - Mobile-first layout
+  - Fully responsive across devices
+- **Modern UI:**
+  - Custom button components
+  - Greyish dark theme (#888888 and #3d3d3d shades)
+  - Smooth hover transitions
+- **Protected Actions:**
+  - Add / Manage products allowed only after login
+- **Navbar and Footer:**
+  - Sticky navbar with dynamic links
+  - Footer at the bottom of all pages
 
-- **Responsive Design**: Optimized for different screen sizes.
-- **Smooth Navigation**: Easy and intuitive navigation between different sections.
-- **Dynamic Content**: Uses React components to render dynamic content.
-- **Stylish UI**: Designed with TailwindCSS for a modern look and feel.
-- **Carousel Integration**: Uses slick-carousel for displaying content in a carousel format.
+---
 
-## Technologies Used
+## 📋 Pages Included
 
-- **React**: A JavaScript library for building user interfaces.
-- **TailwindCSS**: A utility-first CSS framework for rapid UI development.
-- **Slick Carousel**: A carousel/slider library for React.
-- **Netlify**: For deployment.
+- Home (Hero Section)
+- Products
+- Login
+- Signup
+- Profile
+- Add Product
+- Manage Products
 
-## Getting Started
+---
 
-To get a local copy of the project up and running, follow these steps.
-
-### Prerequisites
-
-Ensure you have the following installed:
-- Node.js
-- npm (Node package manager)
-
-### Installation
-
-1. **Clone the repository:**
-    ```sh
-    git clone https://github.com/jayy1511/Gym-Website-React-TailwindCSS.git
-    cd Gym-Website-React-TailwindCSS
-    ```
-
-2. **Install dependencies:**
-    ```sh
-    npm install
-    ```
-
-### Running the Project
-
-1. **Start the development server:**
-    ```sh
-    npm run dev
-    ```
-
-2. Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
-
-## Live Demo
-
-You can view the live version of the project [here]([(https://671a5d07e9ce190a3e24ae1a--teal-panda-c0946a.netlify.app/]).
-
+# 🚀 Made with passion by Jay
