@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { verifyToken } = require("../middleware/auth");
 const upload = require("../middleware/multerConfig");
+const { getProfile } = require("../controllers/userControllers");
 
+router.get("/profile", verifyToken, getProfile);
 
 const { hashPassword } = require("../middleware/passencrypt");
 
