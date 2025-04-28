@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Button from "../layouts/Button";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,9 +14,7 @@ const Signup = () => {
     try {
       const res = await fetch("http://localhost:3000/api/users/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName,
           lastName,
@@ -26,8 +25,6 @@ const Signup = () => {
       });
 
       const data = await res.json();
-      console.log(data);
-
       if (res.ok) {
         alert("Signup successful! Please login.");
         navigate("/login");
@@ -76,13 +73,15 @@ const Signup = () => {
           required
           className="p-3 rounded bg-gray-800 text-white"
         />
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded"
-        >
-          Sign Up
-        </button>
+        
+        {/* 🔥 Using your custom Button here */}
+        <Button title="Sign Up" />
       </form>
+
+      <p className="text-gray-400 mt-4">
+        Already have an account?{" "}
+        <Link to="/login" className="text-blue-400 hover:underline">Sign In</Link>
+      </p>
     </div>
   );
 };

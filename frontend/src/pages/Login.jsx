@@ -1,35 +1,26 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Button from "../layouts/Button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // ✅ very important for redirection
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch("http://localhost:3000/api/users/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
-      console.log(data);
-
       if (res.ok) {
-        // ✅ Save token
         localStorage.setItem("token", data.token);
-
-        // ✅ Save user information
         localStorage.setItem("user", JSON.stringify(data.user));
-
-        // ✅ Redirect to homepage
         navigate("/");
-
       } else {
         alert(data.message || "Login failed!");
       }
@@ -59,13 +50,15 @@ const Login = () => {
           required
           className="p-3 rounded bg-gray-800 text-white"
         />
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded"
-        >
-          Login
-        </button>
+        
+        {/* 🔥 Using your custom Button here */}
+        <Button title="Login" />
       </form>
+
+      <p className="text-gray-400 mt-4">
+        Don't have an account?{" "}
+        <Link to="/signup" className="text-blue-400 hover:underline">Sign Up</Link>
+      </p>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Button from "../layouts/Button";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -47,11 +48,11 @@ const ManageProducts = () => {
         }),
       });
 
-      const data = await res.json();
       if (res.ok) {
         alert("Product updated successfully!");
-        fetchProducts(); // 🔥 Reload products after edit
+        fetchProducts();
       } else {
+        const data = await res.json();
         alert(data.message || "Failed to update product.");
       }
     } catch (error) {
@@ -77,11 +78,11 @@ const ManageProducts = () => {
         },
       });
 
-      const data = await res.json();
       if (res.ok) {
         alert("Product deleted successfully!");
-        fetchProducts(); // 🔥 Reload products after delete
+        fetchProducts();
       } else {
+        const data = await res.json();
         alert(data.message || "Failed to delete product.");
       }
     } catch (error) {
@@ -94,7 +95,7 @@ const ManageProducts = () => {
       <h1 className="text-3xl font-bold mb-6 text-white">Manage Products</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
-          <div key={product._id} className="bg-gray-800 text-white rounded-lg p-5 shadow-md">
+          <div key={product._id} className="bg-[#4F4F4F] text-white rounded-lg p-5 shadow-md">
             {product.imageUrl && (
               <img
                 src={product.imageUrl}
@@ -106,18 +107,8 @@ const ManageProducts = () => {
             <p className="text-gray-400 mb-2">${product.price}</p>
             <p className="text-gray-300 mb-4">{product.description}</p>
             <div className="flex gap-4">
-              <button
-                onClick={() => handleEdit(product._id)}
-                className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(product._id)}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Delete
-              </button>
+              <Button title="Edit" onClick={() => handleEdit(product._id)} />
+              <Button title="Delete" onClick={() => handleDelete(product._id)} />
             </div>
           </div>
         ))}
