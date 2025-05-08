@@ -11,7 +11,7 @@ function AddProduct() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:3000/api/products", {
+      const res = await fetch("https://serverside-javascript-11.onrender.com/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
