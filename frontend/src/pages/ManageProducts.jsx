@@ -6,7 +6,7 @@ const ManageProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://serverside-javascript-11.onrender.com/api/products");
+      const res = await fetch("https://serverside-javascript-13.onrender.com/api/products");
       const data = await res.json();
       setProducts(data);
     } catch (error) {
@@ -35,7 +35,7 @@ const ManageProducts = () => {
     }
 
     try {
-      const res = await fetch(`https://serverside-javascript-11.onrender.com/api/products/${id}`, {
+      const res = await fetch(`https://serverside-javascript-13.onrender.com/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const ManageProducts = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+      const res = await fetch(`https://serverside-javascript-13.onrender.com/api/products/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

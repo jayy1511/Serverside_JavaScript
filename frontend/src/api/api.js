@@ -1,4 +1,4 @@
-export const API_URL = "https://serverside-javascript-11.onrender.com/api";
+export const API_URL = "https://serverside-javascript-13.onrender.com/api";
 
 export async function fetchProducts() {
   const res = await fetch(`${API_URL}/products`);
